@@ -1,16 +1,37 @@
-import React, { ChangeEvent, useState } from 'react';
-import useInput, { vaildates } from './hooks/useInput';
+import React from 'react';
+import useTabs, { ContentsType } from './hooks/useTabs';
 
 const App = () => {
-  const name = useInput('Mr.', vaildates.maxLen);
+  const content: ContentsType = [
+    {
+      tab: 'Section 1',
+      content: `I'm the content of the Section 1`
+    },
+    {
+      tab: 'Section 2',
+      content: `I'm the content of the Section 2`
+    }
+  ]
+
+  const tabs = useTabs(0, content);
+
+  const changeTab = (index: number) => {
+    tabs.changeCurrentIndex(index);
+  }
 
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <input
-        placeholder="Name"
-        {...name}
-      />
+      {content.map((section, index) => (
+        <button
+          onClick={() => changeTab(index)}
+        >
+          {section.tab}
+        </button>
+      ))}
+      <ol>
+        <h1>{tabs.currentItem.tab}</h1>
+        <p>{tabs.currentItem.content}</p>
+      </ol>
     </div>
   );
 }
