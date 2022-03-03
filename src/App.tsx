@@ -1,21 +1,12 @@
 import React from 'react';
-import useFadeIn from './hooks/useFadeIn';
+import useNetwork from './hooks/useNetwork';
 
 const App = () => {
-  const { element, onFadeIn } = useFadeIn();
+  const onLine = useNetwork();
 
   return (
     <div className="App">
-      <h1 ref={element} style={{ opacity: 0 }}>Hello</h1>
-
-      <ol>
-        <button onClick={() => onFadeIn()}>
-          Fade In
-        </button>
-        <button onClick={() => onFadeIn(false)}>
-          Fade Out
-        </button>
-      </ol>
+      <h1>{onLine ? 'Online' : 'Offline'}</h1>
     </div>
   );
 }
