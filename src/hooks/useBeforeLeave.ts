@@ -1,14 +1,11 @@
-import {useEffect} from "react";
+import useEventListener from "./useEventListener";
 
 const useBeforeLeave = (onBefore: Function) => {
   const handle = (e: MouseEvent) => {
     if (e.clientY <= 0) onBefore();
   }
 
-  useEffect(() => {
-    document.addEventListener('mouseleave', handle);
-    return () => document.removeEventListener('mouseleave', handle);
-  }, []);
+  useEventListener('mouseleave', handle)
 }
 
 export default useBeforeLeave;
